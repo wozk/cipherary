@@ -1,112 +1,273 @@
+
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
 const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section>
-				<ul>
-					{posts.map((post) => (
-						<li>
-							<a href={`/blog/${post.id}/`}>
-								{post.data.heroImage && (
-									<Image width={720} height={360} src={post.data.heroImage} alt="" />
-								)}
-								<h4 class="title">{post.data.title}</h4>
-								<p class="date">
-									<FormattedDate date={post.data.pubDate} />
-								</p>
-							</a>
-						</li>
-					))}
-				</ul>
-			</section>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead
+      title="Knowledge Library | Cipherary"
+      description="Explore cybersecurity concepts, technical guides, research, and practical insights."
+    />
+  </head>
+
+  <body>
+    <Header />
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">EXPLORE CIPHERARY</p>
+        <h1>Knowledge <span>Library.</span></h1>
+        <p class="intro">
+          Cybersecurity concepts, technical deep dives,
+          practical guides, and perspectives from the field.
+          One concept at a time.
+        </p>
+      </section>
+
+      <section class="articles">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">THE COLLECTION</p>
+            <h2>Latest Articles</h2>
+          </div>
+          <span class="count">{posts.length} ARTICLES</span>
+        </div>
+
+        <div class="article-grid">
+          {posts.map((post, index) => (
+            <a class="article-card" href={`/blog/${post.id}/`}>
+              <div class="card-top">
+                <span class="article-number">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <span class="arrow">↗</span>
+              </div>
+
+              <div class="card-content">
+                <p class="category">CYBERSECURITY / INSIGHTS</p>
+                <h3>{post.data.title}</h3>
+                {post.data.description && (
+                  <p class="description">{post.data.description}</p>
+                )}
+              </div>
+
+              <div class="card-footer">
+                <span>
+                  <FormattedDate date={post.data.pubDate} />
+                </span>
+                <span>READ ARTICLE →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        {posts.length === 0 && (
+          <p class="empty">
+            New articles are coming soon. Stay curious.
+          </p>
+        )}
+      </section>
+    </main>
+
+    <Footer />
+  </body>
 </html>
+
+<style>
+  :global(body) {
+    background: #0b0b0b;
+    color: #f5f3ed;
+    margin: 0;
+  }
+
+  main {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    box-sizing: border-box;
+  }
+
+  .hero {
+    padding: 7rem 0 6rem;
+    border-bottom: 1px solid #292929;
+  }
+
+  .eyebrow {
+    color: #ff873d;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+  }
+
+  h1 {
+    font-size: clamp(3rem, 7vw, 6rem);
+    line-height: 1.1;
+    letter-spacing: -0.055em;
+    color: #f5f3ed;
+    margin: 1.5rem 0;
+  }
+
+  h1 span {
+    color: #ff873d;
+  }
+
+  .intro {
+    max-width: 650px;
+    color: #aeb8c5;
+    font-size: 1.15rem;
+    line-height: 1.8;
+  }
+
+  .articles {
+    padding: 5rem 0 8rem;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  h2 {
+    color: #f5f3ed;
+    font-size: 2.5rem;
+    letter-spacing: -0.04em;
+    margin: 0.5rem 0 0;
+  }
+
+  .count {
+    color: #ff873d;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .article-card {
+    background: #151515;
+    border: 1px solid #303030;
+    border-radius: 12px;
+    padding: 2rem;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .article-card:hover {
+    border-color: #ff873d;
+    transform: translateY(-4px);
+  }
+
+  .card-top,
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .article-number {
+    color: #ff873d;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .arrow {
+    color: #ff873d;
+    font-size: 1.5rem;
+  }
+
+  .card-content {
+    flex: 1;
+    padding: 2.5rem 0;
+  }
+
+  .category {
+    color: #ff873d;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  h3 {
+    color: #f5f3ed;
+    font-size: 1.65rem;
+    line-height: 1.3;
+    margin: 1rem 0;
+  }
+
+  .description {
+    color: #aeb8c5;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .card-footer {
+    border-top: 1px solid #303030;
+    padding-top: 1.25rem;
+    color: #aeb8c5;
+    font-size: 0.75rem;
+  }
+
+  .card-footer span:last-child {
+    color: #ff873d;
+    font-weight: 700;
+  }
+
+  .empty {
+    color: #aeb8c5;
+    padding: 3rem 0;
+  }
+
+  @media (max-width: 700px) {
+    main {
+      padding: 0 1.25rem;
+    }
+
+    .hero {
+      padding: 5rem 0 4rem;
+    }
+
+    .articles {
+      padding: 4rem 0;
+    }
+
+    .article-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .section-heading {
+      align-items: start;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    .article-card {
+      min-height: 250px;
+    }
+  }
+</style>
