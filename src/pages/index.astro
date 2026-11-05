@@ -1,59 +1,61 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to
-				build a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your{' '}
-				<code>astro.config.mjs</code> file. You can customize your setup with{' '}
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like
-				Tailwind, React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>
-					Edit this page in <code>src/pages/index.astro</code>
-				</li>
-				<li>
-					Edit the site header items in <code>src/components/Header.astro</code>
-				</li>
-				<li>
-					Add your name to the footer in <code>src/components/Footer.astro</code>
-				</li>
-				<li>
-					Check out the included blog posts in <code>src/content/blog/</code>
-				</li>
-				<li>
-					Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code>
-				</li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to{' '}
-				<a href="https://docs.astro.build/">read the docs</a> or{' '}
-				<a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out{' '}
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a> by{' '}
-				<a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section class="hero">
+        <p class="eyebrow">THE CYBERSECURITY KNOWLEDGE HUB</p>
+        <h1>Decoding Cybersecurity,<br /><span>One Concept at a Time.</span></h1>
+        <p class="intro">Clear explanations, practical insights, and technical perspectives on cybersecurity, identity, and digital trust.</p>
+        <a class="cta" href="/blog/">Explore Articles →</a>
+      </section>
+
+      <section class="topics">
+        <p class="eyebrow">EXPLORE CIPHERARY</p>
+        <h2>Security, explained.</h2>
+        <div class="topic-grid">
+          <a href="/blog/"><span>01 / IDENTITY</span><h3>Identity & Access Management</h3><p>Understanding identities, permissions, and access controls.</p></a>
+          <a href="/blog/"><span>02 / PRIVILEGE</span><h3>Privileged Access Security</h3><p>Exploring privileged accounts, sessions, and security practices.</p></a>
+          <a href="/blog/"><span>03 / FUNDAMENTALS</span><h3>Cybersecurity Concepts</h3><p>Breaking down essential security ideas, one topic at a time.</p></a>
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </body>
 </html>
+
+<style>
+  :global(body) { background: #0b1018; color: #f5f3ed; }
+  :global(header) { background: #0b1018; }
+  :global(header a) { color: #f5f3ed; }
+  main { width: 100%; max-width: 1200px; margin: auto; padding: 0 2rem; }
+  .hero { padding: 8rem 0 9rem; border-bottom: 1px solid #303744; }
+  .eyebrow { color: #ff873d; font-size: .75rem; letter-spacing: .18em; font-weight: 700; }
+  h1 { font-size: clamp(2.6rem, 6vw, 5.4rem); line-height: 1.12; letter-spacing: -.045em; margin: 2rem 0; }
+  h1 span { color: #ff873d; }
+  .intro { color: #aeb8c5; max-width: 630px; font-size: 1.15rem; line-height: 1.8; }
+  .cta { display: inline-block; background: #ff873d; color: #0b1018; padding: .9rem 1.4rem; border-radius: 5px; font-weight: 700; text-decoration: none; margin-top: 2rem; }
+  .topics { padding: 5rem 0 8rem; }
+  h2 { font-size: 2.5rem; margin: 1rem 0 3rem; }
+  .topic-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .topic-grid a { background: #151c27; border: 1px solid #303744; border-radius: 10px; padding: 2rem; text-decoration: none; color: #f5f3ed; }
+  .topic-grid a:hover { border-color: #ff873d; }
+  .topic-grid span { color: #ff873d; font-size: .7rem; letter-spacing: .1em; }
+  h3 { font-size: 1.3rem; line-height: 1.4; margin: 1.5rem 0 1rem; }
+  .topic-grid p { color: #aeb8c5; line-height: 1.7; font-size: .95rem; }
+  @media (max-width: 700px) {
+    main { padding: 0 1.25rem; }
+    .hero { padding: 5rem 0; }
+    .topic-grid { grid-template-columns: 1fr; }
+  }
+</style>
