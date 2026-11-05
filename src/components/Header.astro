@@ -7,7 +7,15 @@ import HeaderLink from './HeaderLink.astro';
 <header>
   <nav>
     <h2>
-      <a class="brand" href="/cipherary/">{SITE_TITLE}</a>
+      <h2 class="brand">
+  <a href="/cipherary/" aria-label="Cipherary Home">
+    <img
+      src="/cipherary/cipherary-logo.png"
+      alt="Cipherary"
+      class="site-logo"
+    />
+  </a>
+</h2>
     </h2>
 
     <div class="internal-links">
@@ -90,4 +98,26 @@ import HeaderLink from './HeaderLink.astro';
       font-size: 0.9rem;
     }
   }
+.brand a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  border-bottom: none;
+}
+
+.site-logo {
+  display: block;
+  width: auto;
+  height: 42px;
+  max-width: 200px;
+  object-fit: contain;
+  border-radius: 0;
+}
+
+@media (max-width: 720px) {
+  .site-logo {
+    height: 34px;
+    max-width: 160px;
+  }
+}
 </style>
